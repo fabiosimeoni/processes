@@ -54,4 +54,5 @@ public class ParallelPolicy<TR> extends ConfigurablePolicy<TR,Collection<? exten
 		
 		return results;
 	}
+
 }

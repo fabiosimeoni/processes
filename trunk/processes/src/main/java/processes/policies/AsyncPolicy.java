@@ -3,6 +3,7 @@
  */
 package processes.policies;
 
+import static java.lang.String.*;
 import static java.util.concurrent.Executors.*;
 
 import java.util.Collection;
@@ -34,5 +35,11 @@ public class AsyncPolicy<TR,PR> implements Policy<TR,Future<PR>> {
 		service.shutdown();
 		return future;
 		
+	}
+	
+	/**{@inheritDoc}*/
+	@Override
+	public String toString() {
+		return format("%s\n\t%s", super.toString(),syncPolicy);
 	}
 }

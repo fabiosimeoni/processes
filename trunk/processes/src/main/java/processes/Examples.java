@@ -17,8 +17,8 @@ public class Examples {
 
 	public static void main(String[] args) throws Exception {
 		
-		Runnable r1 = new MyRunnable(1);
-		Runnable r2 = new MyRunnable(2);
+		MyRunnable r1 = new MyRunnable(1);
+		MyRunnable r2 = new MyRunnable(2);
 		
 		//execute all in background
 		execute(r1,r2).inSequence().and().notBlocking();
@@ -32,9 +32,11 @@ public class Examples {
 		
 		execute(r1,r2).inParallel().ignoringFailures().stoppingOnSuccess().blocking();
 		
+		MyRunnable r3 = new MyRunnable(3,1);
+		MyRunnable r4 = new MyRunnable(4,1);
+		generate(r1,r2,r3,r4);
 
-		
-		Collection<Callable<Integer>> tasks = new ArrayList<Callable<Integer>>();
+		Collection<MyCallable<Integer>> tasks = new ArrayList<MyCallable<Integer>>();
 		tasks.add(new MyCallable<Integer>(1,1,2000));
 		tasks.add(new MyCallable<Integer>(2,2,5000));
 
@@ -56,15 +58,15 @@ public class Examples {
 		//execute in background until there is a failure discarding all the previous results
 		execute(tasks).inSequence().stoppingOnFailure().and().discardingResults().notBlocking();
 
-		Collection<? extends Integer> ints = execute(tasks).inParallel().ignoringFailures().stoppingOnSuccess().collectingResults().blocking().call();
-		System.out.println("done");
-		System.out.println("done with "+new ArrayList<Integer>(ints));
+		execute(tasks).inParallel().ignoringFailures().stoppingOnSuccess().pickingLastResult().notBlocking();
+		
 	}
 
 	public static class MyCallable<T> implements Callable<T> {
 		private int i;
 		private T t;
 		private long sleep;
+	
 		
 		public MyCallable(int i, T t, long s) {
 			this.i=i;
@@ -80,13 +82,22 @@ public class Examples {
 			System.out.println("task "+i+" done");	
 			return t;
 		}
+		
+
 	}
 	
-	public static class MyRunnable implements Runnable {
+	public static class MyRunnable implements Runnable, PriorityTask {
+		
 		private int i;
+		private int priority;
 		
 		public MyRunnable(int i) {
 			this.i=i;
+		}
+		
+		public MyRunnable(int i,int p) {
+			this.i=i;
+			priority=p;
 		}
 		
 		/**{@inheritDoc}*/
@@ -97,6 +108,14 @@ public class Examples {
 				Thread.sleep(2000);
 				System.out.println("task "+i+" done");					
 			}catch (Exception e) {}
+		}
+		
+		
+		
+		/**{@inheritDoc}*/
+		@Override
+		public int priority() {
+			return priority;
 		}
 	}
 }

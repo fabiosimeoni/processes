@@ -3,6 +3,8 @@
  */
 package processes.policies;
 
+import static java.lang.String.*;
+
 import java.util.concurrent.ExecutionException;
 
 import processes.Policy;
@@ -53,4 +55,9 @@ public abstract class ConfigurablePolicy<TR,PR> implements Policy<TR,PR> {
 		failureThreadshold=n;
 	}
 
+	/**{@inheritDoc}*/
+	@Override
+	public String toString() {
+		return format("%s[failures=%d,stopFailures=%d,stopSuccesses=%d]",getClass().getSimpleName(),failureThreadshold,failureStopThreshold,successThreshold);
+	}
 }
