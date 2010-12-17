@@ -3,6 +3,8 @@
  */
 package processes;
 
+import static java.lang.String.*;
+
 import java.util.Collection;
 import java.util.concurrent.Callable;
 
@@ -30,5 +32,10 @@ public class Process<TR,PR> implements Callable<PR> {
 		return tasks;
 	}
 	
+	/**{@inheritDoc}*/
+	@Override
+	public String toString() {
+		return format("%s {tasks:%s,policy:%s}",getClass().getSimpleName(),tasks,policy);
+	}
 
 }

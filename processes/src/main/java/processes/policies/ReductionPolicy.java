@@ -3,6 +3,8 @@
  */
 package processes.policies;
 
+import static java.lang.String.*;
+
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -28,5 +30,11 @@ public class ReductionPolicy<TR,AR,PR> implements Policy<TR,PR> {
 	@Override
 	public PR execute(Collection<? extends Callable<TR>> tasks) throws ExecutionException {
 		return reducer.reduce(inner.execute(tasks));
+	}
+	
+	/**{@inheritDoc}*/
+	@Override
+	public String toString() {
+		return format("%s applies %s to %s",getClass().getSimpleName(),reducer.getClass().getSimpleName(),inner);
 	}
 }
