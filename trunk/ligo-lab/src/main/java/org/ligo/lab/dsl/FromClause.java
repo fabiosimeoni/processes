@@ -5,6 +5,6 @@ import org.ligo.lab.transform.Transform;
 
 public interface FromClause<TYPE,IN> {
 	
-	<STREAM> Binder<STREAM,TYPE> from(Transform<STREAM,IN> t);
+	<STREAM> Binder<STREAM,TYPE> and(Transform<STREAM,IN> t);
 	Binder<IN,TYPE> build();
 }

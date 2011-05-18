@@ -25,7 +25,7 @@ public class From<TYPE,IN> implements FromClause<TYPE,IN> {
 	
 	/**{@inheritDoc}*/
 	@Override
-	public <STREAM> Binder<STREAM, TYPE> from(Transform<STREAM, IN> t) {
+	public <STREAM> Binder<STREAM, TYPE> and(Transform<STREAM, IN> t) {
 		CompositeTransform<STREAM, IN, TYPE> ct = new CompositeTransform<STREAM,IN,TYPE>(t,ctxt.transform()); 
 		return new DefaultBinder<STREAM,TYPE>(ct);
 	}
