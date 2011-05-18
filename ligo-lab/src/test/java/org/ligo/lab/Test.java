@@ -3,7 +3,7 @@
  */
 package org.ligo.lab;
 
-import static org.ligo.lab.dsl.LigoDSL.*;
+import static org.ligo.lab.dsl.Ligo.*;
 
 import java.io.Reader;
 import java.io.StringReader;
