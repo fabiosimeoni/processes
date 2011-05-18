@@ -21,7 +21,7 @@ class UsingWith<TYPE> implements UsingWithClause<TYPE> {
 
 	/**{@inheritDoc}*/
 	@Override
-	public <IN, OUT> TranslatedBindClause<TYPE, IN, OUT> using(TransformFactory<Class<TYPE>, IN, OUT> translation) {
+	public <IN, OUT> TranslatedBindClause<TYPE, IN, OUT> with(TransformFactory<Class<TYPE>, IN, OUT> translation) {
 		Context<TYPE, IN, OUT> c = new Context<TYPE, IN, OUT>(ctxt.boundtype(), translation.transform(ctxt.boundtype));
 		return new TranslatedBinding<TYPE, IN, OUT>(c);
 	}

@@ -81,7 +81,7 @@ public class Test {
 		TransformFactory<Class<MyType>,Data,Match> translation = new PatternFactory<MyType>();
 		
 		//define
-		Binder<Data,MyType> translated = bind(MyType.class).using(translation).and(mbinder).build();
+		Binder<Data,MyType> translated = bind(MyType.class).with(translation).and(mbinder).build();
 		
 		//use
 		bound = translated.bind(data);
@@ -90,7 +90,7 @@ public class Test {
 		System.out.println("---- use case 6");
 		
 		//define
-		Binder<Reader,MyType> readerTranslated = bind(MyType.class).using(translation).and(mbinder).and(parser);
+		Binder<Reader,MyType> readerTranslated = bind(MyType.class).with(translation).and(mbinder).and(parser);
 		
 		//use
 		bound = readerTranslated.bind(stream);
