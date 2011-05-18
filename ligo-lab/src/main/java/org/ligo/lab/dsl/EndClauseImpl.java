@@ -12,14 +12,14 @@ import org.ligo.lab.transform.Transform;
  * @author Fabio Simeoni
  *
  */
-public class From<TYPE,IN> implements FromClause<TYPE,IN> {
+public class EndClauseImpl<TYPE,IN> implements EndClause<TYPE,IN> {
 
-	Context<TYPE,IN,TYPE> ctxt;
+	ClauseContext<TYPE,IN,TYPE> ctxt;
 	
 	/**
 	 * 
 	 */
-	public From(Context<TYPE,IN,TYPE> c) {
+	public EndClauseImpl(ClauseContext<TYPE,IN,TYPE> c) {
 		ctxt=c;
 	}
 	

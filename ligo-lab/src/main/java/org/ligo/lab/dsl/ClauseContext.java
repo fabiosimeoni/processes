@@ -2,7 +2,7 @@ package org.ligo.lab.dsl;
 
 import org.ligo.lab.transform.Transform;
 
-class Context<T,IN,OUT> {
+class ClauseContext<T,IN,OUT> {
 	
 	Transform<IN,OUT> transform;
 	
@@ -10,11 +10,11 @@ class Context<T,IN,OUT> {
 	/**
 	 * 
 	 */
-	public Context(Class<T>type) {
+	public ClauseContext(Class<T>type) {
 		boundtype = type;
 	}
 	
-	public Context(Class<T>type, Transform<IN, OUT> t) {
+	public ClauseContext(Class<T>type, Transform<IN, OUT> t) {
 		this(type);
 		transform=t;
 	}
