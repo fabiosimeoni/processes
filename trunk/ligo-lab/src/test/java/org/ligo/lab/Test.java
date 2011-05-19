@@ -9,7 +9,7 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import org.ligo.lab.transform.Transform;
-import org.ligo.lab.transform.TransformFactory;
+import org.ligo.lab.transform.TypeTransform;
 
 
 /**
@@ -19,9 +19,6 @@ import org.ligo.lab.transform.TransformFactory;
 public class Test {
 
 	public static void main(String[] args) {
-		
-		
-		
 		
 		System.out.println("---- use case 1");
 
@@ -78,19 +75,19 @@ public class Test {
 		System.out.println("---- use case 5");
 		
 		//config
-		TransformFactory<Class<MyType>,Data,Match> translation = new PatternFactory<MyType>();
+		TypeTransform<MyType,Data,Match> factory = new PatternFactory<MyType>();
 		
 		//define
-		Binder<Data,MyType> translated = bind(MyType.class).with(translation).and(mbinder).build();
+		Binder<Data,MyType> generated = bind(MyType.class).with(factory).and(mbinder).build();
 		
 		//use
-		bound = translated.bind(data);
+		bound = generated.bind(data);
 		
 		
 		System.out.println("---- use case 6");
 		
 		//define
-		Binder<Reader,MyType> readerTranslated = bind(MyType.class).with(translation).and(mbinder).and(parser);
+		Binder<Reader,MyType> readerTranslated = bind(MyType.class).with(factory).and(mbinder).and(parser);
 		
 		//use
 		bound = readerTranslated.bind(stream);
@@ -130,7 +127,7 @@ class DataPattern implements Transform<Data,Match> {
 	}
 }
 
-class PatternFactory<T> implements TransformFactory<Class<T>,Data,Match> {
+class PatternFactory<T> implements TypeTransform<T,Data,Match> {
 	
 	/**{@inheritDoc}*/
 	@Override
