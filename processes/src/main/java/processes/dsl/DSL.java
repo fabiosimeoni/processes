@@ -33,7 +33,7 @@ public class DSL {
 		return new OngoingMode<TR,Void>(Collections.singleton(task));
 	}
 	
-	public static VoidModeStep execute(Collection<? extends Runnable> rs) {
+	public static VoidModeStep executeRunnable(Collection<? extends Runnable> rs) {
 		return execute(rs.toArray(new Runnable[0]));
 	}
 	public static VoidModeStep execute(Runnable ... tasks) {
@@ -67,7 +67,7 @@ public class DSL {
 			List<T> siblings = index.get(i);
 			if (siblings.size() > 1)
 				//add parallel process
-				children.add(execute(siblings).inParallel().and().blocking()); 
+				children.add(executeRunnable(siblings).inParallel().and().blocking()); 
 			else
 				//add single task
 				children.add(callable(siblings.get(0))); 
